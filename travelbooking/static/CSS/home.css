@@ -1,0 +1,214 @@
+
+  .container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .welcome-section {
+    text-align: center;
+    background-color: #ffffffcc;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 12px rgba(0,119,182,0.2);
+    color: #0077b6;
+  }
+
+  .search-form {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .search-form select,
+  .search-form input,
+  .search-form button {
+    border-radius: 10px;
+    border: 1.5px solid #ccc;
+    padding: 0.65rem 1.2rem;
+    font-size: 1rem;
+    min-width: 160px;
+  }
+
+  .search-form select,
+  .search-form input {
+    flex: 1 1 160px;
+  }
+
+  .search-form button {
+    flex: 0 0 auto;
+    padding: 0 1.8rem;
+    font-weight: 700;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-form button:hover {
+    background-color: #005f86;
+  }
+
+  h2 {
+    color: #0077b6;
+    margin-bottom: 1.2rem;
+  }
+
+  table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 26px rgba(0, 119, 182, 0.15);
+    background-color: white;
+  }
+
+  thead tr {
+    background-color: #0077b6;
+    color: white;
+  }
+
+  th, td {
+    padding: 14px 16px;
+    text-align: center;
+    border-bottom: 1px solid #cbd5e1;
+  }
+
+  tbody tr:hover {
+    background-color: #e2f0fb;
+    cursor: pointer;
+  }
+
+  button.seats-btn {
+    border-radius: 12px;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: default;
+  }
+
+  button.available {
+    background-color: #0077b6;
+  }
+
+  button.unavailable {
+    background-color: #ef4444;
+    cursor: not-allowed;
+  }
+
+  a.book-now, button.book-now-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.6s ease;
+    animation: greenGlow 2s infinite alternate;
+  }
+  a.book-now:hover, button.book-now-btn:hover {
+    background-color: #1e7e34;
+    box-shadow: 0 0 10px 3px #28a745;
+  }
+
+  @keyframes greenGlow {
+    from {
+      box-shadow: 0 0 5px 2px #28a745;
+    }
+    to {
+      box-shadow: 0 0 15px 6px #28a745;
+    }
+  }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 1024px) {
+    .search-form {
+      gap: 0.75rem;
+    }
+    .search-form select,
+    .search-form input {
+      flex: 1 1 45%;
+      min-width: unset;
+    }
+    .search-form button {
+      flex: 1 1 45%;
+    }
+    th, td {
+      padding: 10px 8px;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .welcome-section {
+      padding: 1.5rem 1rem;
+      font-size: 0.95rem;
+    }
+    .search-form {
+      flex-direction: column;
+    }
+    .search-form select,
+    .search-form input,
+    .search-form button {
+      flex: unset;
+      width: 100%;
+      min-width: unset;
+      font-size: 1rem;
+    }
+    h2 {
+      font-size: 1.3rem;
+    }
+    table, thead, tbody, th, td, tr {
+      display: block;
+      width: 100%;
+    }
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr {
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #0077b6;
+      padding-bottom: 10px;
+    }
+    td {
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+      font-size: 0.9rem;
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+    td:before {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      transform: translateY(-50%);
+      font-weight: 700;
+      color: #0077b6;
+      content: attr(data-label);
+    }
+    button.seats-btn {
+      padding: 8px 14px;
+      font-size: 1rem;
+    }
+    a.book-now, button.book-now-btn {
+      font-size: 1rem;
+      padding: 8px 14px;
+    }
+  }
+

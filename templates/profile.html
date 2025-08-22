@@ -1,20 +1,81 @@
 {% extends 'base.html' %}
 {% block title %}Profile - Travel Booking{% endblock %}
 {% block content %}
-<div style="max-width: 400px; margin: 3rem auto; background: white; padding: 2rem 3rem; border-radius: 16px; box-shadow: 0 14px 30px rgba(19, 91, 162, 0.2); animation: fadeSlideIn 0.8s ease forwards;">
-  <h2 style="color: #135ba2; font-weight: 600; margin-bottom: 1.5rem; text-align: center;">Update Profile</h2>
-  <form method="post">
+{%load static%}
+<link rel="stylesheet" href="{% static 'CSS/profile.css' %}">
+<div class="profile-container">
+  <button id="editBtn" class="edit-button" type="button" aria-label="Edit Profile">Edit</button>
+
+  <h2>Update Profile</h2>
+
+  <form id="profileForm" method="post" novalidate>
     {% csrf_token %}
-    <label for="id_first_name" style="color:chocolate ">First Name</label>
-    <input type="text" id="id_first_name" name="first_name" value="{{ user.first_name }}" required style="width: 100%; padding: 10px; margin-bottom: 1rem; border: 2px solid #a3c0f1; border-radius: 10px;">
+    <label for="id_first_name">First Name</label>
+    <input type="text" id="id_first_name" name="first_name" value="{{ user.first_name }}" required>
 
-    <label for="id_last_name" style="color:chocolate ">Last Name</label>
-    <input type="text" id="id_last_name" name="last_name" value="{{ user.last_name }}" required style="width: 100%; padding: 10px; margin-bottom: 1rem; border: 2px solid #a3c0f1; border-radius: 10px;">
+    <label for="id_last_name">Last Name</label>
+    <input type="text" id="id_last_name" name="last_name" value="{{ user.last_name }}" required>
 
-    <label for="id_email" style="color:chocolate ">Email</label>
-    <input type="email" id="id_email" name="email" value="{{ user.email }}" required style="width: 100%; padding: 10px; margin-bottom: 1.5rem; border: 2px solid #a3c0f1; border-radius: 10px;">
+    <label for="id_email">Email</label>
+    <input type="email" id="id_email" name="email" value="{{ user.email }}" required>
 
-    <button type="submit" style="width: 100%; padding: 12px; background: #135ba2; color: white; border-radius: 14px; font-weight: 600; cursor: pointer; transition: background-color 0.3s;">Save</button>
+    <button id="saveBtn" type="submit" class="save-button">Save</button>
   </form>
 </div>
+
+<div id="successPopup" class="success-popup" role="alert" aria-live="assertive">
+  Profile saved successfully!
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('profileForm');
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const successPopup = document.getElementById('successPopup');
+
+    // Initially form is editable (or control this per backend flag)
+    // On form submit, simulate save and switch to readonly mode
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent actual form submission for demo, you remove this in real case 
+
+      // Here you can add real AJAX or normal form submission logic.
+
+      // Show popup
+      successPopup.classList.add('visible');
+
+      // Disable inputs (make readonly)
+      Array.from(form.elements).forEach(el => {
+        if (el.tagName.toLowerCase() === 'input') {
+          el.readOnly = true;
+          el.classList.add('readonly');
+        }
+      });
+
+      // Hide save button and show edit button
+      saveBtn.style.display = 'none';
+      editBtn.style.display = 'inline-block';
+
+      // Hide popup after 3 seconds
+      setTimeout(() => {
+        successPopup.classList.remove('visible');
+      }, 3000);
+    });
+
+    // Edit button click handler to enable editing
+    editBtn.addEventListener('click', function () {
+      Array.from(form.elements).forEach(el => {
+        if (el.tagName.toLowerCase() === 'input') {
+          el.readOnly = false;
+          el.classList.remove('readonly');
+        }
+      });
+      saveBtn.style.display = 'block';
+      editBtn.style.display = 'none';
+      form.querySelector('input').focus();
+    });
+  });
+</script>
+
 {% endblock %}

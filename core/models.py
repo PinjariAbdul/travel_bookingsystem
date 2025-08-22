@@ -12,7 +12,6 @@ class TravelOption(models.Model):
     available_seats = models.PositiveIntegerField()
     
     def __str__(self):
-        # Return a meaningful string instead of integer
         return f"{self.type} from {self.source} to {self.destination} on {self.date_time.strftime('%Y-%m-%d %H:%M')}"
 
 class Booking(models.Model):
@@ -26,4 +25,4 @@ class Booking(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, max_length=12)
     
     def __str__(self):
-        return str(self.booking_id)  # Correctly converted to string
+        return str(self.booking_id)  

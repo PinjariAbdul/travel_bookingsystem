@@ -19,6 +19,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),          # add this for app urls
-    # path('accounts/', include('django.contrib.auth.urls')),  # login/logout
+    path('', include('core.urls')),       
+    
 ]
