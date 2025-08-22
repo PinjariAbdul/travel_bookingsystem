@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Travel Booking App{% endblock %}</title>
+  <style>
+    /* Reset box-sizing */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f9ff;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-theme {
+      background: #121622;
+      color: #e0e6f0;
+      padding: initial;
+    }
+
+    header {
+      background: linear-gradient(90deg, #0093E9 0%, #80D0C7 100%);
+      padding: 1rem 2rem;
+      box-shadow: 0 3px 8px rgba(0, 147, 233, 0.4);
+      user-select: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 {
+      margin: 0;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: white;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: default;
+    }
+
+    nav {
+      margin-top: 0;
+      padding: 0;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: flex-end;
+      min-width: fit-content;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 8px 14px;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+      margin: 0; /* Remove extra margin if any */
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+      transition: width 0.3s ease, left 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover {
+      color: #ffeaa7;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 85%;
+      left: 50%;
+    }
+
+    nav a.active {
+      color: #ffeaa7;
+    }
+
+    form.logout-form {
+      margin: 0; /* Remove default margin from form */
+      display: inline; /* Ensure inline display to not break nav layout */
+    }
+
+    form.logout-form button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 8px 14px;
+      border-radius: 14px;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    form.logout-form button:hover {
+      color: #ffeaa7;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 1rem 2rem;
+      max-width: 1250px;
+      margin: 0 auto;
+      width: 100%;
+      animation: fadeInContent 0.8s ease forwards;
+      opacity: 1; /* Make sure content visible */
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    @keyframes fadeInContent {
+      to { opacity: 1; }
+    }
+
+    footer {
+      background: #064663;
+      color: #d9f0ff;
+      text-align: center;
+      padding: 14px 2rem;
+      font-size: 0.9rem;
+      user-select: none;
+      box-shadow: 0 -3px 8px rgba(0, 70, 99, 0.6);
+      margin-top: auto;
+    }
+
+    /* Responsive changes */
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+        justify-content: center;
+        min-width: auto;
+        margin-top: 0.5rem;
+      }
+      header {
+        justify-content: center;
+      }
+      main {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Travel Booking</h1>
+    <nav>
+      <a href="{% url 'home' %}" {% if request.path == '/' %}class="active"{% endif %}>Explore</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'my_bookings' %}" {% if 'my-bookings' in request.path %}class="active"{% endif %}>My Bookings</a>
+        <a href="{% url 'profile' %}" {% if 'profile' in request.path %}class="active"{% endif %}>Profile</a>
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </nav>
+    <!-- Theme switcher can be added here if needed -->
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    &copy; 2025 Travel Booking
+  </footer>
+</body>
+</html>

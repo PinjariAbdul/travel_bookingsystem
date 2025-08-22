@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% block title %}Home - Travel Booking{% endblock %}
+{% block content %}
+<style>
+  .container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .welcome-section {
+    text-align: center;
+    background-color: #ffffffcc;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 12px rgba(0,119,182,0.2);
+    color: #0077b6;
+  }
+
+  .search-form {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .search-form select,
+  .search-form input,
+  .search-form button {
+    border-radius: 10px;
+    border: 1.5px solid #ccc;
+    padding: 0.65rem 1.2rem;
+    font-size: 1rem;
+    min-width: 160px;
+  }
+
+  .search-form select,
+  .search-form input {
+    flex: 1 1 160px;
+  }
+
+  .search-form button {
+    flex: 0 0 auto;
+    padding: 0 1.8rem;
+    font-weight: 700;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-form button:hover {
+    background-color: #005f86;
+  }
+
+  h2 {
+    color: #0077b6;
+    margin-bottom: 1.2rem;
+  }
+
+  table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 26px rgba(0, 119, 182, 0.15);
+    background-color: white;
+  }
+
+  thead tr {
+    background-color: #0077b6;
+    color: white;
+  }
+
+  th, td {
+    padding: 14px 16px;
+    text-align: center;
+    border-bottom: 1px solid #cbd5e1;
+  }
+
+  tbody tr:hover {
+    background-color: #e2f0fb;
+    cursor: pointer;
+  }
+
+  button.seats-btn {
+    border-radius: 12px;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: default;
+  }
+
+  button.available {
+    background-color: #0077b6;
+  }
+
+  button.unavailable {
+    background-color: #ef4444;
+    cursor: not-allowed;
+  }
+
+  a.book-now, button.book-now-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.6s ease;
+    animation: greenGlow 2s infinite alternate;
+  }
+  a.book-now:hover, button.book-now-btn:hover {
+    background-color: #1e7e34;
+    box-shadow: 0 0 10px 3px #28a745;
+  }
+
+  @keyframes greenGlow {
+    from {
+      box-shadow: 0 0 5px 2px #28a745;
+    }
+    to {
+      box-shadow: 0 0 15px 6px #28a745;
+    }
+  }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 1024px) {
+    .search-form {
+      gap: 0.75rem;
+    }
+    .search-form select,
+    .search-form input {
+      flex: 1 1 45%;
+      min-width: unset;
+    }
+    .search-form button {
+      flex: 1 1 45%;
+    }
+    th, td {
+      padding: 10px 8px;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .welcome-section {
+      padding: 1.5rem 1rem;
+      font-size: 0.95rem;
+    }
+    .search-form {
+      flex-direction: column;
+    }
+    .search-form select,
+    .search-form input,
+    .search-form button {
+      flex: unset;
+      width: 100%;
+      min-width: unset;
+      font-size: 1rem;
+    }
+    h2 {
+      font-size: 1.3rem;
+    }
+    table, thead, tbody, th, td, tr {
+      display: block;
+      width: 100%;
+    }
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr {
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #0077b6;
+      padding-bottom: 10px;
+    }
+    td {
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+      font-size: 0.9rem;
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+    td:before {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      transform: translateY(-50%);
+      font-weight: 700;
+      color: #0077b6;
+      content: attr(data-label);
+    }
+    button.seats-btn {
+      padding: 8px 14px;
+      font-size: 1rem;
+    }
+    a.book-now, button.book-now-btn {
+      font-size: 1rem;
+      padding: 8px 14px;
+    }
+  }
+</style>
+
+<div class="container">
+  <section class="welcome-section" role="banner">
+    <h1>Welcome to Travel Booking</h1>
+    {% if user.is_authenticated %}
+      <p>Discover and manage your travel bookings easily.</p>
+    {% else %}
+      <p>Create an account or log in to start your journey.</p>
+    {% endif %}
+  </section>
+
+  <form method="get" class="search-form" role="search" aria-label="Search travel options">
+    <select name="type" aria-label="Travel type">
+      <option value="">All Types</option>
+      <option value="Flight" {% if selected_type == 'Flight' %}selected{% endif %}>Flight</option>
+      <option value="Train" {% if selected_type == 'Train' %}selected{% endif %}>Train</option>
+      <option value="Bus" {% if selected_type == 'Bus' %}selected{% endif %}>Bus</option>
+    </select>
+    <input type="text" name="source" placeholder="Source" value="{{ selected_source }}" aria-label="Source city" />
+    <input type="text" name="destination" placeholder="Destination" value="{{ selected_destination }}" aria-label="Destination city" />
+    <input type="date" name="date" value="{{ selected_date|date:'Y-m-d' }}" aria-label="Travel date" />
+    <button type="submit" aria-label="Search travel options">Search</button>
+  </form>
+
+  <h2>Travel Options</h2>
+
+  <table role="table" aria-label="Travel options">
+    <thead>
+      <tr>
+        {% if user.is_authenticated %}<th>Travel ID</th>{% endif %}
+        <th>Type</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Date & Time</th>
+        <th>Price</th>
+        <th>Available Seats</th>
+        <th>Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if travels %}
+        {% for travel in travels %}
+          <tr>
+            {% if user.is_authenticated %}<td data-label="Travel ID">{{ travel.travel_id }}</td>{% endif %}
+            <td data-label="Type">{{ travel.type }}</td>
+            <td data-label="Source">{{ travel.source }}</td>
+            <td data-label="Destination">{{ travel.destination }}</td>
+            <td data-label="Date & Time">{{ travel.date_time|date:"M d, Y H:i" }}</td>
+            <td data-label="Price">${{ travel.price }}</td>
+            <td data-label="Available Seats">
+              {% if travel.available_seats > 0 %}
+                <button class="seats-btn available" disabled>{{ travel.available_seats }}</button>
+              {% else %}
+                <button class="seats-btn unavailable" disabled>0</button>
+              {% endif %}
+            </td>
+            <td data-label="Book">
+              {% if travel.available_seats > 0 %}
+                {% if user.is_authenticated %}
+                  <a href="{% url 'book_travel' travel.travel_id %}" class="book-now">Book Now</a>
+                {% else %}
+                  <button type="button" class="book-now book-now-btn" onclick="promptRegister()">Book Now</button>
+                {% endif %}
+              {% else %}
+                Sold Out
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="{% if user.is_authenticated %}8{% else %}7{% endif %}" style="text-align:center; padding:1rem;">No travel options found.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function promptRegister() {
+    alert("For booking tickets, you must register and log in.");
+  }
+</script>
+{% endblock %}

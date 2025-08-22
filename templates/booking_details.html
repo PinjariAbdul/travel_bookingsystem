@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Details{% endblock %}
+
+{% block content %}
+<h1>Booking Details of {{ booking.user.username }}</h1>
+
+<ul>
+  <li><strong>Booking ID:</strong> {{ booking.booking_id }}</li>
+  <li><strong>User:</strong> {{ booking.user.username }}</li>
+  <li><strong>Travel Type:</strong> {{ booking.travel_option.type }}</li>
+  <li><strong>Source:</strong> {{ booking.travel_option.source }}</li>
+  <li><strong>Destination:</strong> {{ booking.travel_option.destination }}</li>
+  <li><strong>Date & Time:</strong> {{ booking.travel_option.date_time|date:"M d, Y H:i" }}</li>
+  <li><strong>Number of Seats:</strong> {{ booking.number_of_seats }}</li>
+  <li><strong>Total Price:</strong> ${{ booking.total_price }}</li>
+  <li><strong>Booking Date:</strong> {{ booking.booking_date|date:"M d, Y H:i" }}</li>
+  <li><strong>Status:</strong> {{ booking.status }}</li>
+</ul>
+
+<p>
+  <a href="{% url 'my_bookings' %}" style="padding:6px 12px; background:#6c63ff; color:white; border-radius:5px; text-decoration:none;">Back to My Bookings</a>
+</p>
+{% endblock %}

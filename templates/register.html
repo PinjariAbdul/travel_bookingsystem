@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Register - Travel Booking{% endblock %}
+{% block content %}
+<div style="max-width: 360px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); animation: fadeSlideIn 0.6s ease forwards;">
+  <h2 style="color:#0076a3; font-weight: 700; margin-bottom: 1rem; text-align:center; letter-spacing: 0.05em;">Create Account</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="id_username">Username</label>
+    <input id="id_username" name="username" type="text" required style="width: 100%; padding: 8px; margin-bottom: 1rem; border-radius: 10px; border: 2px solid #00b4db;">
+
+    <label for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required style="width: 100%; padding: 8px; margin-bottom: 1rem; border-radius: 10px; border: 2px solid #00b4db;">
+
+    <label for="id_password1">Password</label>
+    <input id="id_password1" name="password1" type="password" required style="width: 100%; padding: 8px; margin-bottom: 1rem; border-radius: 10px; border: 2px solid #00b4db;">
+
+    <label for="id_password2">Confirm Password</label>
+    <input id="id_password2" name="password2" type="password" required style="width: 100%; padding: 8px; margin-bottom: 1rem; border-radius: 10px; border: 2px solid #00b4db;">
+
+    <button type="submit" style="width:100%; padding: 12px; background:#0083b0; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; transition: background-color 0.3s;">Register</button>
+  </form>
+  <p style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+    Already have an account? <a href="{% url 'login' %}" style="color:#00b4db; text-decoration:none;">Log In</a>
+  </p>
+</div>
+{% endblock %}

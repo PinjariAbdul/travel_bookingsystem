@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Explore Travel Options{% endblock %}
+{% block content %}
+<h1 style="text-align: center; color: #c75c34; font-weight: 800; letter-spacing: 0.1em; margin-bottom: 2rem; animation: bounceColor 3s infinite alternate;">Explore Travel Options</h1>
+<form method="get" style="max-width: 900px; margin: 0 auto 2rem; text-align: center;">
+  <select name="type" style="padding: 8px 12px; border-radius: 8px; border: 2px solid #c75c34; font-weight: 600; width: 160px; margin-right: 1rem;">
+    <option value="">All Types</option>
+    <option value="Flight" {% if request.GET.type == "Flight" %}selected{% endif %}>Flight</option>
+    <option value="Train" {% if request.GET.type == "Train" %}selected{% endif %}>Train</option>
+    <option value="Bus" {% if request.GET.type == "Bus" %}selected{% endif %}>Bus</option>
+  </select>
+  <input type="text" name="source" placeholder="Source" value="{{ request.GET.source }}" style="padding: 8px 12px; margin-right: 1rem; border: 2px solid #c75c34; border-radius: 8px; width: 160px;">
+  <input type="text" name="destination" placeholder="Destination" value="{{ request.GET.destination }}" style="padding: 8px 12px; margin-right: 1rem; border: 2px solid #c75c34; border-radius: 8px; width: 160px;">
+  <input type="date" name="date" value="{{ request.GET.date }}" style="padding: 8px 12px; margin-right: 1rem; border: 2px solid #c75c34; border-radius: 8px; width: 160px;">
+  <button type="submit" style="background: #ff5722; border: none; padding: 10px 22px; border-radius: 14px; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 6px 0 #c75c34; transition: background-color 0.3s;">Filter</button>
+</form>
+<ul style="max-width: 900px; margin: 0 auto; padding: 0; list-style: none;">
+  {% for travel in travels %}
+    <li style="background: white; margin-bottom: 1rem; padding: 1rem 2rem; border-radius: 12px; box-shadow: 1px 1px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; cursor: pointer; transition: transform 0.3s;">
+      <div style="font-weight: 600; color: #6e2b00;">
+        <strong>{{ travel.type }}</strong> | {{ travel.source }} → {{ travel.destination }} | {{ travel.date_time|date:'M d, Y H:i' }} | ${{ travel.price }} | Seats: {{ travel.available_seats }}
+      </div>
+      <a href="{% url 'book_travel' travel.travel_id %}" style="background: #6e2b00; color: white; padding: 8px 18px; border-radius: 10px; text-decoration: none; font-weight: bold; transition: background-color 0.2s;">Book Now</a>
+    </li>
+  {% empty %}
+    <li style="text-align: center; font-weight: 600; color: #c75c34;">No travel options found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

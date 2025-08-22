@@ -1,0 +1,50 @@
+[
+  {
+    "model": "core.traveloption",
+    "pk": 1,
+    "fields": {
+      "type": "Flight",
+      "source": "New York",
+      "destination": "London",
+      "date_time": "2025-09-15T08:00:00Z",
+      "price": "500.00",
+      "available_seats": 12
+    }
+  },
+  {
+    "model": "core.traveloption",
+    "pk": 2,
+    "fields": {
+      "type": "Train",
+      "source": "Paris",
+      "destination": "Berlin",
+      "date_time": "2025-10-01T14:30:00Z",
+      "price": "120.00",
+      "available_seats": 30
+    }
+  },
+  {
+    "model": "core.traveloption",
+    "pk": 3,
+    "fields": {
+      "type": "Bus",
+      "source": "Los Angeles",
+      "destination": "San Francisco",
+      "date_time": "2025-08-25T09:00:00Z",
+      "price": "45.00",
+      "available_seats": 15
+    }
+  },
+  {
+    "model": "core.traveloption",
+    "pk": 4,
+    "fields": {
+      "type": "Train",
+      "source": "Los Angeles",
+      "destination": "San Francisco",
+      "date_time": "2025-08-25T09:00:00Z",
+      "price": "45.00",
+      "available_seats": 45
+    }
+  }
+]
