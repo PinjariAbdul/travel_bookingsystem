@@ -8,13 +8,14 @@
 
   <h2>Update Profile</h2>
 
+
   <form id="profileForm" method="post" novalidate>
     {% csrf_token %}
     <label for="id_first_name">First Name</label>
-    <input type="text" id="id_first_name" name="first_name" value="{{ user.first_name }}" required>
+    <input type="text" id="id_first_name" name="first_name" value="{{ form.first_name.value }}" required>
 
     <label for="id_last_name">Last Name</label>
-    <input type="text" id="id_last_name" name="last_name" value="{{ user.last_name }}" required>
+    <input type="text" id="id_last_name" name="last_name" value="{{ form.last_name.value }}" required>
 
     <label for="id_email">Email</label>
     <input type="email" id="id_email" name="email" value="{{ user.email }}" required>
@@ -23,9 +24,13 @@
   </form>
 </div>
 
-<div id="successPopup" class="success-popup" role="alert" aria-live="assertive">
-  Profile saved successfully!
-</div>
+{% if messages %}
+  {% for message in messages %}
+    <div id="successPopup" class="success-popup visible" role="alert" aria-live="assertive">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -34,36 +39,26 @@
     const saveBtn = document.getElementById('saveBtn');
     const successPopup = document.getElementById('successPopup');
 
-    // Initially form is editable (or control this per backend flag)
-    // On form submit, simulate save and switch to readonly mode
+    // Set initial state: make inputs readonly and show Edit button
+    Array.from(form.elements).forEach(el => {
+      if (el.tagName.toLowerCase() === 'input') {
+        el.readOnly = true;
+        el.classList.add('readonly');
+      }
+    });
+    saveBtn.style.display = 'none';
+    editBtn.style.display = 'inline-block';
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // prevent actual form submission for demo, you remove this in real case 
 
-      // Here you can add real AJAX or normal form submission logic.
-
-      // Show popup
-      successPopup.classList.add('visible');
-
-      // Disable inputs (make readonly)
-      Array.from(form.elements).forEach(el => {
-        if (el.tagName.toLowerCase() === 'input') {
-          el.readOnly = true;
-          el.classList.add('readonly');
-        }
-      });
-
-      // Hide save button and show edit button
-      saveBtn.style.display = 'none';
-      editBtn.style.display = 'inline-block';
-
-      // Hide popup after 3 seconds
+    
+    // Auto-hide success popup after 3 seconds
+    if (successPopup) {
       setTimeout(() => {
         successPopup.classList.remove('visible');
       }, 3000);
-    });
+    }
 
-    // Edit button click handler to enable editing
+    // Edit button click handler
     editBtn.addEventListener('click', function () {
       Array.from(form.elements).forEach(el => {
         if (el.tagName.toLowerCase() === 'input') {
@@ -77,5 +72,6 @@
     });
   });
 </script>
+
 
 {% endblock %}

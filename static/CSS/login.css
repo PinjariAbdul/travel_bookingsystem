@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
+
+body {
+    background: #3d3d3d;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container {
+    width: 400px;
+    max-width: 96vw;
+    margin: 7% auto 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.09), 0 1.5px 4px rgba(0,0,0,0.11);
+    padding: 38px 38px 20px 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container h2 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: #3b67b0;
+    font-weight: 600;
+    margin-bottom: 4px;
+    margin-top: 10px;
+    letter-spacing: 0.03em;
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 13px;
+    margin-bottom: 10px;
+    border-radius: 9px;
+    border: 2px solid #a3c0f1;
+    background: #f1f4fa;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #527cc7;
+    box-shadow: 0 0 7px #0d3a702f;
+}
+
+button[type="submit"] {
+    margin-top: 18px;
+    width: 100%;
+    background: #007acc;
+    background: linear-gradient(90deg, #007acc 0%, #00c3ff 100%);
+    color: #fff;
+    border: none;
+    padding: 13px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 4px 16px rgba(0,163,255,0.12);
+    letter-spacing: 0.04em;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+    background: linear-gradient(90deg, #005fa3 0%, #00a3cc 100%);
+}
+
+.signup-prompt {
+    margin-top: 22px;
+    font-size: 0.98rem;
+    text-align: center;
+    color: #444;
+}
+
+.signup-prompt a {
+    color: #007acc;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-bottom 0.18s;
+    border-bottom: 1px solid transparent;
+}
+
+.signup-prompt a:hover {
+    border-bottom: 1px solid #007acc;
+}
+
+.error-message {
+    margin-bottom: 14px;
+    color: #b70000;
+    background: #fff0f2;
+    padding: 10px 13px;
+    border-radius: 9px;
+    font-weight: 600;
+    border: 1px solid #f8b4c1;
+    text-align: center;
+}
+
+/* Responsive for mobile */
+@media (max-width: 500px) {
+    .login-container {
+        width: 97vw;
+        padding: 16px 4vw 16px 4vw;
+    }
+    form {
+        padding: 0;
+    }
+    h2 {
+        font-size: 1.45rem;
+    }
+}

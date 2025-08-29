@@ -12,7 +12,7 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-
+    
 class ProfileUpdateForm(UserChangeForm):
     password = None  # Hide password field
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
@@ -38,3 +38,4 @@ class BookingForm(forms.Form):
         if seats > self.max_seats:
             raise forms.ValidationError(f'You can book up to {self.max_seats} seats only.')
         return seats
+
