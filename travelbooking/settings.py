@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9y9zsx61a(f&%yd^t+o*n&@k4k-s1kv&n7)=e$olc*296#s*-e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["travel-bookingsystem.onrender.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
